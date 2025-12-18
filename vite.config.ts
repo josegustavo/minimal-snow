@@ -6,9 +6,10 @@ export default defineConfig({
     build: {
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
-            name: 'SnowEffect', // Global variable name for UMD build
-            fileName: (format) => `snow-effect.${format}.js`,
+            name: 'MinimalSnow', // Global variable name for UMD build
+            fileName: (format) => `minimal-snow.${format}.js`,
         },
+
         rollupOptions: {
             // Ensure external dependencies are not bundled (none in this case)
             external: [],

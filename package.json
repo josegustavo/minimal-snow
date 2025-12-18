@@ -1,14 +1,14 @@
 {
     "name": "minimal-snow",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A lightweight, high-performance snow effect as a Web Component and Library.",
-    "main": "./dist/snow-effect.umd.js",
-    "module": "./dist/snow-effect.es.js",
+    "main": "./dist/minimal-snow.umd.js",
+    "module": "./dist/minimal-snow.es.js",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/snow-effect.es.js",
-            "require": "./dist/snow-effect.umd.js",
+            "import": "./dist/minimal-snow.es.js",
+            "require": "./dist/minimal-snow.umd.js",
             "types": "./dist/index.d.ts"
         }
     },
@@ -43,5 +43,8 @@
         "typescript": "^5.9.3",
         "vite": "^7.3.0",
         "vite-plugin-dts": "^4.5.4"
+    },
+    "dependencies": {
+        "minimal-snow": "^1.0.0"
     }
 }

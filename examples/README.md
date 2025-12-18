@@ -35,6 +35,6 @@ Interactive demo page for testing all library features.
 
 ## Notes
 
-- The demo imports the ES module from `../dist/snow-effect.es.js`
+- The demo imports the ES module from `../dist/minimal-snow.es.js`
 - The page includes a dark/light theme toggle to test theme detection
 - Both demos run simultaneously — the Web Component creates a full-screen overlay
