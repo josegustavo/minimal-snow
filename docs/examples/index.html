@@ -4,29 +4,103 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Minimal Snow — Interactive Demo</title>
-  <style>/* minimal styles omitted for brevity; same as examples/index.html */
-  body{font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial; padding:2rem;}</style>
+  <style>
+    :root { --bg: #0f172a; --bg-card: #1e293b; --text: #f1f5f9; --text-muted: #94a3b8; --accent: #38bdf8; --border: #334155; }
+    [data-theme="light"] { --bg: #f8fafc; --bg-card: #ffffff; --text: #1e293b; --text-muted: #64748b; --accent: #0ea5e9; --border: #e2e8f0; }
+    *{box-sizing:border-box}
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; margin:0; padding:2rem; background:var(--bg); color:var(--text); min-height:100vh; transition: background .3s, color .3s; }
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
+    h1{margin:0;font-size:1.75rem}
+    h1 span{color:var(--accent)}
+    .theme-toggle{background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:.5rem 1rem;border-radius:.5rem;cursor:pointer;font-size:.875rem}
+    .card{background:var(--bg-card);border:1px solid var(--border);border-radius:1rem;padding:1.5rem;margin-bottom:1.5rem}
+    .card h2{margin:0 0 .5rem;font-size:1.25rem;display:flex;align-items:center;gap:.5rem}
+    .card p{color:var(--text-muted);margin:0 0 1rem;font-size:.9rem}
+    .controls{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+    .control-group{display:flex;flex-direction:column;gap:.25rem}
+    .control-group label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
+    input,select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:.5rem .75rem;border-radius:.375rem;font-size:.875rem;width:100px}
+    input[type="color"]{width:50px;height:36px;padding:2px;cursor:pointer}
+    button{background:var(--accent);color:#fff;border:none;padding:.6rem 1.25rem;border-radius:.5rem;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s}
+    button.secondary{background:var(--bg);border:1px solid var(--border);color:var(--text)}
+    .status{font-size:.75rem;padding:.25rem .5rem;border-radius:.25rem;background:#22c55e22;color:#22c55e}
+    .status.off{background:#ef444422;color:#ef4444}
+    .divider{width:1px;height:2rem;background:var(--border);margin:0 .5rem}
+    footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-muted);text-align:center}
+    footer code{background:var(--bg-card);padding:.15rem .4rem;border-radius:.25rem}
+    snow-effect{display:block}
+  </style>
 </head>
 <body>
-  <h1>Minimal Snow Demo</h1>
-  <p>This demo loads the library from the CDN so it works on GitHub Pages.</p>
+  <header><h1>❄️ Minimal <span>Snow</span> — Demo</h1><button class="theme-toggle" id="theme-toggle">🌙 Dark</button></header>
 
-  <!-- Demo container copied from examples/index.html, trimmed for Pages -->
-  <snow-effect id="wc" running count="2000"></snow-effect>
-  <div style="margin-top:1rem">
-    <button onclick="document.getElementById('wc').toggle()">Toggle Web Component</button>
+  <div class="card">
+    <h2><span>🧩</span> Web Component <span class="status" id="wc-status">Running</span></h2>
+    <p>Use the <code>&lt;snow-effect&gt;</code> custom element. It renders a full-screen canvas overlay. Toggle attributes to control the effect.</p>
+    <snow-effect id="wc" running count="2000"></snow-effect>
+    <div class="controls">
+      <button id="wc-toggle">Toggle</button>
+      <button id="wc-stop" class="secondary">Stop</button>
+      <div class="divider"></div>
+      <div class="control-group"><label>Particles</label><input id="wc-count" type="number" value="2000" min="100" max="10000" step="100"></div>
+      <div class="control-group"><label>Theme</label><select id="wc-theme"><option value="auto">Auto</option><option value="dark">Dark</option><option value="light">Light</option></select></div>
+      <div class="control-group"><label>Z-Index</label><input id="wc-zindex" type="number" value="9999" min="0" step="1"></div>
+    </div>
   </div>
 
+  <div class="card">
+    <h2><span>⚙️</span> SnowEngine API <span class="status off" id="engine-status">Stopped</span></h2>
+    <p>Create a <code>SnowEngine</code> instance attached to <code>document.body</code>. This gives you full programmatic control over the effect.</p>
+    <div class="controls">
+      <button id="engine-start">Start</button>
+      <button id="engine-toggle" class="secondary">Toggle</button>
+      <button id="engine-stop" class="secondary">Stop</button>
+      <button id="engine-destroy" class="secondary">Destroy</button>
+      <div class="divider"></div>
+      <div class="control-group"><label>Particles</label><input id="engine-count" type="number" value="1500" min="100" max="10000" step="100"></div>
+      <div class="control-group"><label>Dark Color</label><input id="engine-color-dark" type="color" value="#ffffff"></div>
+      <div class="control-group"><label>Light Color</label><input id="engine-color-light" type="color" value="#add8e6"></div>
+      <div class="control-group"><label>Z-Index</label><input id="engine-zindex" type="number" value="9999" min="0" step="1"></div>
+    </div>
+  </div>
+
+  <footer>Run <code>npm run build</code> then <code>npm run dev</code> and open <code>http://localhost:5173/examples/</code></footer>
+
   <script type="module">
-    // Import from CDN so this page works on GitHub Pages
+    // Use CDN imports so the page works on GitHub Pages
     import 'https://cdn.jsdelivr.net/npm/minimal-snow@1.0.1/dist/minimal-snow.es.js';
     import { SnowEngine } from 'https://cdn.jsdelivr.net/npm/minimal-snow@1.0.1/dist/minimal-snow.es.js';
 
-    // Small programmatic demo
-    let engine;
-    document.addEventListener('click', (e) => {
-      if ((e.target && e.target.matches && e.target.matches('button')) && e.target.textContent.includes('Start')) return;
+    // --- Theme Toggle ---
+    const themeBtn = document.getElementById('theme-toggle');
+    let isDark = true;
+    themeBtn.addEventListener('click', () => {
+      isDark = !isDark;
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      document.body.classList.toggle('dark-mode', isDark);
+      themeBtn.textContent = isDark ? '🌙 Dark' : '☀️ Light';
     });
+    document.body.classList.add('dark-mode');
+
+    // --- Web Component Controls ---
+    const wc = document.getElementById('wc');
+    const wcStatus = document.getElementById('wc-status');
+    const updateWcStatus = () => { const running = wc.hasAttribute('running'); wcStatus.textContent = running ? 'Running' : 'Stopped'; wcStatus.classList.toggle('off', !running); };
+    document.getElementById('wc-toggle').addEventListener('click', () => { wc.hasAttribute('running') ? wc.removeAttribute('running') : wc.setAttribute('running', ''); updateWcStatus(); });
+    document.getElementById('wc-stop').addEventListener('click', () => { wc.removeAttribute('running'); updateWcStatus(); });
+    document.getElementById('wc-count').addEventListener('input', (e) => { wc.setAttribute('count', e.target.value); });
+    document.getElementById('wc-theme').addEventListener('change', (e) => { if (e.target.value === 'auto') wc.removeAttribute('theme'); else wc.setAttribute('theme', e.target.value); });
+    document.getElementById('wc-zindex').addEventListener('input', (e) => { wc.setAttribute('z-index', e.target.value); });
+
+    // --- SnowEngine Controls ---
+    let engine = null;
+    const engineStatus = document.getElementById('engine-status');
+    const updateEngineStatus = (running) => { engineStatus.textContent = running ? 'Running' : 'Stopped'; engineStatus.classList.toggle('off', !running); };
+    const getEngineOptions = () => ({ count: Number(document.getElementById('engine-count').value) || 1500, colorDark: document.getElementById('engine-color-dark').value, colorLight: document.getElementById('engine-color-light').value, zIndex: Number(document.getElementById('engine-zindex').value) || 9999 });
+    document.getElementById('engine-start').addEventListener('click', () => { if (engine) engine.destroy(); engine = new SnowEngine(document.body, getEngineOptions()); engine.start?.(); updateEngineStatus(true); });
+    document.getElementById('engine-toggle').addEventListener('click', () => { if (!engine) return; engine.toggle(); const isOff = engineStatus.classList.contains('off'); updateEngineStatus(isOff); });
+    document.getElementById('engine-stop').addEventListener('click', () => { engine?.stop(); updateEngineStatus(false); });
+    document.getElementById('engine-destroy').addEventListener('click', () => { engine?.destroy(); engine = null; updateEngineStatus(false); });
   </script>
 </body>
 </html>
