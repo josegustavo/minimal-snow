@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Minimal Snow — Interactive Demo</title>
+  <style>/* minimal styles omitted for brevity; same as examples/index.html */
+  body{font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial; padding:2rem;}</style>
+</head>
+<body>
+  <h1>Minimal Snow Demo</h1>
+  <p>This demo loads the library from the CDN so it works on GitHub Pages.</p>
+
+  <!-- Demo container copied from examples/index.html, trimmed for Pages -->
+  <snow-effect id="wc" running count="2000"></snow-effect>
+  <div style="margin-top:1rem">
+    <button onclick="document.getElementById('wc').toggle()">Toggle Web Component</button>
+  </div>
+
+  <script type="module">
+    // Import from CDN so this page works on GitHub Pages
+    import 'https://cdn.jsdelivr.net/npm/minimal-snow@1.0.1/dist/minimal-snow.es.js';
+    import { SnowEngine } from 'https://cdn.jsdelivr.net/npm/minimal-snow@1.0.1/dist/minimal-snow.es.js';
+
+    // Small programmatic demo
+    let engine;
+    document.addEventListener('click', (e) => {
+      if ((e.target && e.target.matches && e.target.matches('button')) && e.target.textContent.includes('Start')) return;
+    });
+  </script>
+</body>
+</html>
