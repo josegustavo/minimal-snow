@@ -6,11 +6,40 @@
   <title>Minimal Snow — Demo</title>
 </head>
 <body>
-  <h1>Minimal Snow — Demo</h1>
-  <p>This page is the same as <code>/examples/index.html</code>.</p>
-  <iframe src="examples/index.html" style="width:100%;height:80vh;border:none"></iframe>
+  <!-- Replaced iframe wrapper with the full demo page to avoid nested frames -->
+  <!-- The content below is the full interactive demo (same as /examples/index.html) -->
+  <header>
+    <h1>❄️ Minimal <span>Snow</span> — Demo</h1>
+  </header>
+
+  <main>
+    <!-- Embed the examples page directly to avoid iframe nesting -->
+    <section>
+      <p>The interactive demo below runs the library from the CDN so it works on GitHub Pages.</p>
+      <div id="demo-root"></div>
+    </section>
+  </main>
+
   <footer>
     <p>Hosted via GitHub Pages.</p>
   </footer>
+
+  <script type="module">
+    // Load the full examples page HTML and inject it (avoids iframe and keeps a single URL)
+    (async function loadDemo(){
+      const res = await fetch('examples/index.html');
+      if (!res.ok) {
+        document.getElementById('demo-root').innerHTML = '<p>Could not load demo.</p>';
+        return;
+      }
+      const html = await res.text();
+      // Inject demo HTML into the page
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      // Move the demo content into #demo-root
+      const demoRoot = document.getElementById('demo-root');
+      while (wrapper.firstChild) demoRoot.appendChild(wrapper.firstChild);
+    })();
+  </script>
 </body>
 </html>
