@@ -176,7 +176,7 @@ const snow = new SnowEngine(containerElement, options);
 
 ## Badges & Try it
 
-[![npm version](https://img.shields.io/npm/v/minimal-snow.svg)](https://www.npmjs.com/package/minimal-snow) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Try demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-blue)](https://josegustavo.github.io/minimal-snow/)
+[![npm version](https://img.shields.io/npm/v/minimal-snow.svg)](https://www.npmjs.com/package/minimal-snow) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![GitHub Pages](https://img.shields.io/badge/Live-Demo-blue)](https://josegustavo.github.io/minimal-snow/) [![Try on CodeSandbox](https://img.shields.io/badge/Try%20on-CodeSandbox-green)](https://codesandbox.io/s/github/josegustavo/minimal-snow?file=/examples/index.html)
 
 
 ## License
