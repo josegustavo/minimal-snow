@@ -1,0 +1,47 @@
+{
+    "name": "minimal-snow",
+    "version": "1.0.0",
+    "description": "A lightweight, high-performance snow effect as a Web Component and Library.",
+    "main": "./dist/snow-effect.umd.js",
+    "module": "./dist/snow-effect.es.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/snow-effect.es.js",
+            "require": "./dist/snow-effect.umd.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "snow",
+        "web-component",
+        "effect",
+        "particles",
+        "canvas",
+        "animation",
+        "winter"
+    ],
+    "author": "josegustavo",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/josegustavo/minimal-snow.git"
+    },
+    "bugs": {
+        "url": "https://github.com/josegustavo/minimal-snow/issues"
+    },
+    "homepage": "https://github.com/josegustavo/minimal-snow#readme",
+    "devDependencies": {
+        "typescript": "^5.9.3",
+        "vite": "^7.3.0",
+        "vite-plugin-dts": "^4.5.4"
+    }
+}
