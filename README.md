@@ -24,14 +24,25 @@ This library creates a smooth, canvas-based snow animation that overlays your we
 npm install minimal-snow
 ```
 
-### Option 2: CDN (Easiest for HTML)
+### Option 2: CDN (Easiest for HTML — ideal for plain pages)
 
-Simply add this script to your `<head>` or body. It automatically registers the Web Component.
+UMD (for plain HTML):
 
 ```html
 <script src="https://unpkg.com/minimal-snow@latest/dist/minimal-snow.umd.js"></script>
+<snow-effect running></snow-effect>
 ```
 
+ESM (modern browsers):
+
+```html
+<script type="module">
+  import { SnowEngine } from 'https://cdn.jsdelivr.net/npm/minimal-snow@latest/dist/minimal-snow.es.js';
+  new SnowEngine(document.body, { count: 1200 }).start();
+</script>
+```
+
+> Note: CDN URLs become available automatically after publishing to npm; replace `@latest` with a specific version (e.g., `@1.0.1`) for stability.
 ---
 
 ## Usage
@@ -162,6 +173,11 @@ const snow = new SnowEngine(containerElement, options);
 | `zIndex` | `number` | `9999` | Z-index for the canvas element. |
 
 ---
+
+## Badges & Try it
+
+[![npm version](https://img.shields.io/npm/v/minimal-snow.svg)](https://www.npmjs.com/package/minimal-snow) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Try demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-blue)](https://josegustavo.github.io/minimal-snow/)
+
 
 ## License
 
